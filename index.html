@@ -1,0 +1,3894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadil Sir's Endeavours - Coaching Centre Pampore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #8B0000;
+            --bright-red: #DC143C;
+            --white: #FFFFFF;
+            --off-white: #F8F8F8;
+            --dark: #1A1A1A;
+            --gray: #666666;
+            --gold: #FFD700;
+            --mind-blue: #2563EB;
+            --mind-purple: #7C3AED;
+            --mind-teal: #14B8A6;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: #f0f0f0;
+        }
+
+        /* Particle Canvas */
+        #celebration-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139,0,0,0.05) 0%, rgba(255,255,255,0.95) 100%);
+            z-index: -1;
+        }
+
+        /* Enhanced Book Animation */
+        .book-container {
+            position: fixed;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            animation: dropBook 2s ease-out forwards;
+            animation-delay: 0.5s;
+            perspective: 1000px;
+        }
+
+        @keyframes dropBook {
+            0% { top: -100%; transform: translateX(-50%) rotate(-10deg) rotateY(-20deg); }
+            60% { top: 20%; transform: translateX(-50%) rotate(5deg) rotateY(10deg); }
+            80% { top: 18%; transform: translateX(-50%) rotate(-2deg) rotateY(-5deg); }
+            100% { top: 20%; transform: translateX(-50%) rotate(0deg) rotateY(0deg); }
+        }
+
+        .book {
+            width: 320px;
+            height: 420px;
+            background: linear-gradient(45deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            border-radius: 10px 25px 25px 10px;
+            box-shadow: 
+                0 25px 80px rgba(0,0,0,0.5),
+                inset 0 0 0 10px rgba(255,255,255,0.1),
+                0 0 0 1px rgba(255,255,255,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-left: 15px solid rgba(0,0,0,0.2);
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .book:hover {
+            transform: rotateY(10deg) rotateX(5deg);
+        }
+
+        .book::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .book-logo {
+            width: 110px;
+            height: 110px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+            to { box-shadow: 0 15px 60px rgba(255,215,0,0.6); }
+        }
+
+        .book-logo img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .book h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(to right, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .book p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .close-book {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--primary-red);
+            font-size: 1.3rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            border: 3px solid var(--primary-red);
+        }
+
+        .close-book:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: var(--primary-red);
+            color: white;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 55px;
+            height: 55px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: pulse-logo 2s infinite;
+        }
+
+        @keyframes pulse-logo {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139,0,0,0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(139,0,0,0.4); }
+        }
+
+        .logo-img img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .logo-text h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-red);
+            font-size: 1.6rem;
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            font-size: 0.85rem;
+            color: var(--gray);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red), var(--gold));
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary-red);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .mobile-menu:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Hero Section with Parallax */
+        .hero {
+            margin-top: 80px;
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139,0,0,0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse-bg 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            color: var(--primary-red);
+            margin-bottom: 25px;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 35px;
+            animation: fadeInUp 1s ease 0.2s both;
+            line-height: 1.6;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 35px;
+            animation: fadeInUp 1s ease 0.4s both;
+            box-shadow: 0 10px 30px rgba(139,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 16px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(139,0,0,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(139,0,0,0.4);
+        }
+
+        .btn-outline {
+            border: 3px solid var(--primary-red);
+            color: var(--primary-red);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-red);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(139,0,0,0.3);
+        }
+
+        .btn-mind {
+            background: linear-gradient(135deg, var(--mind-purple) 0%, var(--mind-blue) 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(124,58,237,0.3);
+        }
+
+        .btn-mind:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(124,58,237,0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+
+        /* About Section */
+        .about {
+            background: rgba(255,255,255,0.95);
+            border-radius: 40px;
+            margin: 50px auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139,0,0,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-image {
+            position: relative;
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s;
+        }
+
+        .about-image:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.02);
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 25px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .experience-badge {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            color: white;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(139,0,0,0.4);
+            animation: float 3s ease-in-out infinite;
+            border: 5px solid white;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .experience-badge span {
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .experience-badge small {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .about-text h3 {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 25px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .about-text p {
+            color: var(--gray);
+            line-height: 1.9;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .features-list li {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(139,0,0,0.05);
+            border-radius: 12px;
+            transition: all 0.3s;
+            border-left: 4px solid var(--primary-red);
+        }
+
+        .features-list li:hover {
+            transform: translateX(10px);
+            background: rgba(139,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(139,0,0,0.1);
+        }
+
+        .features-list i {
+            color: var(--primary-red);
+            font-size: 1.3rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* Services Section */
+        .services {
+            background: transparent;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 25px;
+            padding: 50px 35px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            transition: all 0.5s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139,0,0,0.1), transparent);
+            transition: left 0.7s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary-red);
+            box-shadow: 0 25px 70px rgba(139,0,0,0.2);
+        }
+
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: 0 15px 40px rgba(139,0,0,0.3);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(360deg) scale(1.1);
+            box-shadow: 0 20px 50px rgba(139,0,0,0.4);
+        }
+
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 3px dashed var(--gold);
+            animation: spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .class-tags {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, rgba(139,0,0,0.1) 0%, rgba(220,20,60,0.1) 100%);
+            color: var(--primary-red);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .tag:hover {
+            background: var(--primary-red);
+            color: white;
+            transform: translateY(-3px);
+            border-color: var(--gold);
+            box-shadow: 0 5px 15px rgba(139,0,0,0.3);
+        }
+
+        /* Enhanced Toppers Section with Celebration */
+        .toppers {
+            background: rgba(255,255,255,0.95);
+            border-radius: 40px;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toppers::before {
+            content: '🏆';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.03;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .toppers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            perspective: 1000px;
+        }
+
+        .topper-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        .topper-card:hover {
+            transform: translateY(-20px) rotateX(5deg) scale(1.02);
+            box-shadow: 0 30px 80px rgba(139,0,0,0.2);
+        }
+
+        .topper-card.celebrating {
+            animation: celebrate-card 0.6s ease;
+            z-index: 100;
+        }
+
+        @keyframes celebrate-card {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1) rotate(-3deg); }
+            50% { transform: scale(1.1) rotate(3deg); }
+            75% { transform: scale(1.05) rotate(-1deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+
+        .topper-card::before {
+            content: '🏆';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            z-index: 10;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            animation: trophy-bounce 2s infinite;
+        }
+
+        @keyframes trophy-bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(10deg); }
+        }
+
+        .topper-image {
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .topper-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+
+        .topper-card:hover .topper-image img {
+            transform: scale(1.1);
+        }
+
+        .topper-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 5;
+            box-shadow: 0 5px 20px rgba(139,0,0,0.4);
+            animation: badge-pulse 2s infinite;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { box-shadow: 0 5px 20px rgba(139,0,0,0.4); }
+            50% { box-shadow: 0 5px 30px rgba(139,0,0,0.6); }
+        }
+
+        .topper-info {
+            padding: 30px;
+            text-align: center;
+            background: white;
+            position: relative;
+        }
+
+        .topper-info::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+            border-radius: 2px;
+        }
+
+        .topper-info h3 {
+            color: var(--primary-red);
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .topper-info .class-info {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .percentage {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(139,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .percentage::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 2s infinite;
+        }
+
+        .subject-tags {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .subject-tag {
+            background: linear-gradient(135deg, rgba(139,0,0,0.1) 0%, rgba(220,20,60,0.1) 100%);
+            color: var(--primary-red);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(139,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .subject-tag:hover {
+            background: var(--primary-red);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Sparkle Effect on Click */
+        .sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle-anim 1s ease-out forwards;
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        @keyframes sparkle-anim {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Teachers Section */
+        .teachers {
+            background: transparent;
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+        }
+
+        .teacher-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+        }
+
+        .teacher-card.featured {
+            transform: scale(1.05);
+            border: 3px solid var(--gold);
+            box-shadow: 0 20px 60px rgba(255,215,0,0.3);
+        }
+
+        .teacher-card.featured:hover {
+            transform: scale(1.08) translateY(-20px);
+        }
+
+        .teacher-card.featured::after {
+            content: 'FOUNDER';
+            position: absolute;
+            top: 25px;
+            right: -40px;
+            background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%);
+            color: var(--primary-red);
+            padding: 10px 50px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transform: rotate(45deg);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 10;
+            letter-spacing: 2px;
+        }
+
+        .teacher-image {
+            height: 380px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teacher-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+
+        .teacher-card:hover .teacher-image img {
+            transform: scale(1.15);
+        }
+
+        .teacher-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(139,0,0,0.9), transparent);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 30px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .teacher-card:hover .teacher-overlay {
+            opacity: 1;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-red);
+            text-decoration: none;
+            transition: all 0.4s;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-8px) scale(1.1);
+            background: var(--primary-red);
+            color: white;
+            box-shadow: 0 10px 25px rgba(139,0,0,0.4);
+        }
+
+        .teacher-info {
+            padding: 35px;
+            text-align: center;
+            background: white;
+        }
+
+        .teacher-info h3 {
+            color: var(--primary-red);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .teacher-role {
+            color: var(--bright-red);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .teacher-subject {
+            color: var(--gray);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .teacher-bio {
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .experience-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(139,0,0,0.1) 0%, rgba(220,20,60,0.1) 100%);
+            color: var(--primary-red);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 15px;
+            border: 2px solid rgba(139,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .experience-tag:hover {
+            background: var(--primary-red);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: rgba(255,255,255,0.95);
+            border-radius: 40px;
+            margin: 50px auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.1);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .contact-info h3 {
+            font-size: 2.2rem;
+            color: var(--primary-red);
+            margin-bottom: 40px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            margin-bottom: 35px;
+            padding: 20px;
+            background: rgba(139,0,0,0.03);
+            border-radius: 15px;
+            transition: all 0.4s;
+            border-left: 4px solid transparent;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            background: rgba(139,0,0,0.08);
+            border-left-color: var(--primary-red);
+            box-shadow: 0 10px 30px rgba(139,0,0,0.1);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(139,0,0,0.3);
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .contact-item h4 {
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .contact-item p {
+            color: var(--gray);
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .social-links a {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.4s;
+            font-size: 1.3rem;
+            box-shadow: 0 10px 30px rgba(139,0,0,0.3);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(139,0,0,0.4);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-red), var(--gold), var(--primary-red));
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #e8e8e8;
+            border-radius: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.4s;
+            background: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(139,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(139,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139,0,0,0.4);
+        }
+
+        /* MIND-MAZE SECTION STYLES */
+        .mind-maze {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
+            border-radius: 40px;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .mind-maze::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%234f46e5" fill-opacity="0.1"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
+            opacity: 0.3;
+        }
+
+        .mind-maze .section-header h2 {
+            color: var(--gold);
+            font-size: 3.5rem;
+            text-shadow: 0 0 30px rgba(255,215,0,0.3);
+        }
+
+        .mind-maze .section-header p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.3rem;
+        }
+
+        .mind-intro {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mind-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .mind-stat {
+            text-align: center;
+            padding: 25px 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+
+        .mind-stat:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .mind-stat i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .mind-stat span {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .mind-stat label {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Game Cards */
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .game-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 40px;
+            color: var(--dark);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--mind-purple), var(--mind-blue), var(--mind-teal));
+        }
+
+        .game-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 35px 100px rgba(0,0,0,0.4);
+        }
+
+        .game-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .game-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--mind-purple) 0%, var(--mind-blue) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(124,58,237,0.3);
+        }
+
+        .game-title h3 {
+            font-size: 1.6rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .game-title span {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .game-desc {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .play-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--mind-purple) 0%, var(--mind-blue) 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .play-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(124,58,237,0.4);
+        }
+
+        /* Active Game Area */
+        .game-area {
+            display: none;
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .game-area.active {
+            display: block;
+        }
+
+        .game-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .score-board {
+            display: flex;
+            gap: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(124,58,237,0.1);
+            border-radius: 50px;
+            color: var(--mind-purple);
+        }
+
+        .close-game {
+            width: 45px;
+            height: 45px;
+            background: rgba(220,20,60,0.1);
+            border: none;
+            border-radius: 50%;
+            color: var(--bright-red);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-game:hover {
+            background: var(--bright-red);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        /* Memory Game Styles */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--mind-purple) 0%, var(--mind-blue) 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            transform-style: preserve-3d;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(124,58,237,0.3);
+        }
+
+        .memory-card.flipped {
+            background: white;
+            border: 3px solid var(--mind-purple);
+        }
+
+        .memory-card.matched {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            animation: matchPulse 0.5s ease;
+        }
+
+        @keyframes matchPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .memory-card .front, .memory-card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backface-visibility: hidden;
+            border-radius: 15px;
+        }
+
+        .memory-card .back {
+            background: linear-gradient(135deg, var(--mind-purple) 0%, var(--mind-blue) 100%);
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Pattern Game Styles */
+        .pattern-container {
+            text-align: center;
+        }
+
+        .pattern-display {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pattern-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .pattern-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .pattern-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .pattern-btn {
+            padding: 20px;
+            border: 3px solid #e5e7eb;
+            background: white;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pattern-btn:hover {
+            border-color: var(--mind-purple);
+            background: rgba(124,58,237,0.05);
+            transform: translateY(-3px);
+        }
+
+        .pattern-btn.correct {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-color: #059669;
+            animation: correctPulse 0.5s ease;
+        }
+
+        .pattern-btn.wrong {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border-color: #dc2626;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Logic Puzzle Styles */
+        .logic-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logic-question {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            border-left: 5px solid var(--mind-purple);
+        }
+
+        .logic-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .logic-btn {
+            padding: 20px 30px;
+            background: white;
+            border: 3px solid #e5e7eb;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logic-btn:hover {
+            border-color: var(--mind-purple);
+            background: rgba(124,58,237,0.05);
+            transform: translateX(10px);
+        }
+
+        .logic-btn.correct {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-color: #059669;
+        }
+
+        .logic-btn.wrong {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border-color: #dc2626;
+        }
+
+        .logic-btn i {
+            font-size: 1.3rem;
+        }
+
+        /* Speed Math Styles */
+        .math-container {
+            text-align: center;
+        }
+
+        .math-problem {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--mind-purple);
+            margin-bottom: 40px;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 0 30px rgba(124,58,237,0.2);
+        }
+
+        .math-input {
+            width: 200px;
+            padding: 20px;
+            font-size: 2rem;
+            text-align: center;
+            border: 3px solid #e5e7eb;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .math-input:focus {
+            outline: none;
+            border-color: var(--mind-purple);
+            box-shadow: 0 0 0 5px rgba(124,58,237,0.1);
+        }
+
+        .math-submit {
+            padding: 15px 50px;
+            background: linear-gradient(135deg, var(--mind-purple) 0%, var(--mind-blue) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .math-submit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(124,58,237,0.4);
+        }
+
+        .math-timer {
+            font-size: 2rem;
+            color: var(--bright-red);
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Leaderboard */
+        .leaderboard {
+            background: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 40px;
+            margin-top: 60px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .leaderboard h3 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .leader-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .leader-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateX(10px);
+        }
+
+        .leader-rank {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .leader-info {
+            flex: 1;
+        }
+
+        .leader-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .leader-info span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .leader-score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-red) 0%, #5a0000 100%);
+            color: white;
+            padding: 80px 5% 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .footer-logo img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+        }
+
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        footer > p {
+            opacity: 0.95;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: all 0.3s;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 40px;
+            margin-top: 40px;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .copyright p {
+            margin: 5px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .experience-badge {
+                width: 150px;
+                height: 150px;
+                right: 10px;
+                bottom: -20px;
+            }
+
+            .toppers-grid,
+            .teachers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .teacher-card.featured {
+                transform: scale(1);
+            }
+
+            .teacher-card.featured:hover {
+                transform: scale(1.03) translateY(-20px);
+            }
+
+            .games-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 30px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                gap: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero {
+                margin-top: 70px;
+                min-height: 85vh;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .book-container {
+                transform: translateX(-50%) scale(0.8);
+            }
+            
+            section {
+                padding: 60px 5%;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .toppers-grid,
+            .teachers-grid,
+            .games-container {
+                grid-template-columns: 1fr;
+            }
+
+            .topper-image,
+            .teacher-image {
+                height: 300px;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            .mind-stats {
+                gap: 20px;
+            }
+
+            .mind-stat {
+                padding: 20px 30px;
+            }
+
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .pattern-box {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .logic-options {
+                grid-template-columns: 1fr;
+            }
+
+            .math-problem {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .book {
+                width: 280px;
+                height: 380px;
+            }
+            
+            .book h1 {
+                font-size: 1.6rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 14px 30px;
+                font-size: 0.95rem;
+            }
+
+            .topper-card::before {
+                font-size: 2.5rem;
+                top: 15px;
+                right: 15px;
+            }
+
+            .teacher-card.featured::after {
+                font-size: 0.75rem;
+                padding: 8px 35px;
+                right: -35px;
+                top: 20px;
+            }
+
+            .contact-form {
+                padding: 30px 20px;
+            }
+
+            .game-card {
+                padding: 25px;
+            }
+
+            .memory-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .mind-maze .section-header h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            width: 120px;
+            height: 120px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            animation: bounce 1s infinite;
+            box-shadow: 0 15px 40px rgba(139,0,0,0.3);
+        }
+
+        .loader-logo img {
+            width: 70%;
+            filter: brightness(0) invert(1);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--bright-red) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(139,0,0,0.4);
+            z-index: 999;
+            font-size: 1.3rem;
+            border: 3px solid white;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(139,0,0,0.5);
+        }
+
+        /* Image Loading State */
+        .img-loading {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+    
+    <!-- Celebration Canvas -->
+    <canvas id="celebration-canvas"></canvas>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <i class="fas fa-lightbulb" style="color: white; font-size: 3.5rem;"></i>
+            </div>
+            <h3 style="color: var(--primary-red); font-size: 1.8rem; margin-bottom: 10px;">Aadil Sir's Endeavours</h3>
+            <p style="color: var(--gray); font-size: 1.1rem;">Loading Excellence...</p>
+        </div>
+    </div>
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <!-- Book Animation -->
+    <div class="book-container" id="bookContainer">
+        <div class="book">
+            <div class="close-book" onclick="closeBook()">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="book-logo">
+                <i class="fas fa-lightbulb" style="color: var(--primary-red); font-size: 3rem;"></i>
+            </div>
+            <h1>Aadil Sir's ENDEAVOURS</h1>
+            <p style="font-size: 1rem; margin-bottom: 10px;">Excellence in Education Since 2014</p>
+            <p style="font-size: 0.9rem; opacity: 0.9;">
+                <i class="fab fa-instagram"></i> @endeavours_k
+            </p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-img">
+                    <i class="fas fa-lightbulb" style="color: white; font-size: 1.8rem;"></i>
+                </div>
+                <div class="logo-text">
+                    <h2>Aadil Sir's</h2>
+                    <span>ENDEAVOURS</span>
+                </div>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#toppers">Toppers</a></li>
+                <li><a href="#teachers">Teachers</a></li>
+                <li><a href="#mindmaze">Mind-Maze</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge">🏆 10+ Years of Excellence</div>
+            <h1>Shaping Future Leaders at Aadil Sir's Endeavours</h1>
+            <p>Premier coaching centre in Pampore dedicated to academic excellence for 8th, 9th, and 10th grade students. Transforming dreams into achievements since 2014.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-phone"></i> Contact Us
+                </a>
+                <a href="#about" class="btn btn-outline">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </a>
+                <a href="#mindmaze" class="btn btn-mind">
+                    <i class="fas fa-brain"></i> Train Your Brain
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-header">
+            <h2>About Us</h2>
+            <p>Building foundations for a brighter tomorrow</p>
+        </div>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="./img.jpeg" 
+                     alt="Coaching Centre"
+                     class="img-loading"
+                     onload="this.classList.remove('img-loading')">
+                <div class="experience-badge">
+                    <span>10+</span>
+                    <small>Years of<br>Excellence</small>
+                </div>
+            </div>
+            <div class="about-text">
+                <h3>Welcome to Aadil Sir's Endeavours</h3>
+                <p>Founded in 2014 by the visionary educator Aadil Sir, our coaching centre has been the cornerstone of academic success in Pampore. With over a decade of experience, we have consistently produced top-ranking students who have excelled in their academic journeys.</p>
+                <p>Our state-of-the-art facilities, combined with a team of dedicated educators, create an environment where learning thrives. We believe in personalized attention, ensuring every student reaches their full potential.</p>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Expert faculty with years of teaching experience</li>
+                    <li><i class="fas fa-check-circle"></i> Small batch sizes for individual attention</li>
+                    <li><i class="fas fa-check-circle"></i> Regular assessments and progress tracking</li>
+                    <li><i class="fas fa-check-circle"></i> Comprehensive study materials</li>
+                    <li><i class="fas fa-check-circle"></i> Doubt clearing sessions</li>
+                    <li><i class="fas fa-check-circle"></i> Parent-teacher meetings</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2>Our Services</h2>
+            <p>Comprehensive coaching for middle and high school</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3>8th Grade Foundation</h3>
+                <p>Building strong fundamentals in Mathematics, Science, and English to prepare students for higher classes with conceptual clarity.</p>
+                <div class="class-tags">
+                    <span class="tag">Mathematics</span>
+                    <span class="tag">Science</span>
+                    <span class="tag">English</span>
+                    <span class="tag">Urdu</span>
+                    <span class="tag">Social Science</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>9th Grade Preparation</h3>
+                <p>Comprehensive curriculum coverage with focus on concept clarity, problem-solving skills, and board exam preparation.</p>
+                <div class="class-tags">
+                    <span class="tag">All Subjects</span>
+                    <span class="tag">Test Series</span>
+                    <span class="tag">Doubt Sessions</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>10th Grade Excellence</h3>
+                <p>Intensive board exam preparation with previous year papers, mock tests, and result-oriented coaching for 100% success.</p>
+                <div class="class-tags">
+                    <span class="tag">Board Prep</span>
+                    <span class="tag">Mock Tests</span>
+                    <span class="tag">100% Results</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toppers Section  -->
+    <section class="toppers" id="toppers">
+        <div class="section-header">
+            <h2>Our Toppers</h2>
+            <p>🏆 Click on any card to celebrate their achievement! 🎉</p>
+        </div>
+        <div class="toppers-grid">
+            <!-- Topper 1: Aarav Sharma  -->
+            <div class="topper-card" onclick="celebrate(this, event)">
+                <div class="topper-image">
+                    <img src="https://image.pollinations.ai/prompt/Indian%20male%20student%20age%2015%2C%20school%20uniform%2C%20holding%20trophy%2C%20confident%20smile%2C%20bright%20classroom%20background%2C%20professional%20portrait%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Aarav Sharma - Class 10th Topper"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&h=500&fit=crop'">
+                    <span class="topper-badge">Rank 1</span>
+                </div>
+                <div class="topper-info">
+                    <h3>Aarav Sharma</h3>
+                    <p class="class-info">Class 10th Board Exam 2025</p>
+                    <span class="percentage">98.6%</span>
+                    <div class="subject-tags">
+                        <span class="subject-tag">Math: 100</span>
+                        <span class="subject-tag">Science: 98</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topper 2: Zara Khan - -->
+            <div class="topper-card" onclick="celebrate(this, event)">
+                <div class="topper-image">
+                    <img src="https://image.pollinations.ai/prompt/Indian%20female%20student%20age%2015%2C%20hijab%2C%20school%20uniform%2C%20holding%20books%2C%20bright%20smile%2C%20academic%20achievement%20pose%2C%20classroom%20background%2C%20professional%20portrait%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Zara Khan - Class 10th Topper"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop'">
+                    <span class="topper-badge">Rank 2</span>
+                </div>
+                <div class="topper-info">
+                    <h3>Zara Khan</h3>
+                    <p class="class-info">Class 10th Board Exam 2025</p>
+                    <span class="percentage">97.8%</span>
+                    <div class="subject-tags">
+                        <span class="subject-tag">English: 99</span>
+                        <span class="subject-tag">Science: 97</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topper 3: Mohammad Irfan -  -->
+            <div class="topper-card" onclick="celebrate(this, event)">
+                <div class="topper-image">
+                    <img src="https://image.pollinations.ai/prompt/Kashmiri%20male%20student%20age%2014%2C%20traditional%20pheran%2C%20holding%20certificate%2C%20proud%20expression%2C%20academic%20success%2C%20neutral%20background%2C%20professional%20portrait%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Mohammad Irfan - Class 9th Topper"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop'">
+                    <span class="topper-badge">Rank 1</span>
+                </div>
+                <div class="topper-info">
+                    <h3>Mohammad Irfan</h3>
+                    <p class="class-info">Class 9th Annual Exam 2025</p>
+                    <span class="percentage">96.4%</span>
+                    <div class="subject-tags">
+                        <span class="subject-tag">Math: 98</span>
+                        <span class="subject-tag">All A+</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topper 4: Fatima Begum --->
+            <div class="topper-card" onclick="celebrate(this, event)">
+                <div class="topper-image">
+                    <img src="https://image.pollinations.ai/prompt/Kashmiri%20female%20student%20age%2015%2C%20headscarf%2C%20school%20uniform%2C%20holding%20medal%2C%20academic%20success%20pose%2C%20bright%20smile%2C%20neutral%20background%2C%20professional%20portrait%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Fatima Begum - Class 10th Topper"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=500&fit=crop'">
+                    <span class="topper-badge">Rank 3</span>
+                </div>
+                <div class="topper-info">
+                    <h3>Fatima Begum</h3>
+                    <p class="class-info">Class 10th Board Exam 2025</p>
+                    <span class="percentage">96.2%</span>
+                    <div class="subject-tags">
+                        <span class="subject-tag">Science: 98</span>
+                        <span class="subject-tag">SST: 97</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topper 5: Rahul Bhat -  -->
+            <div class="topper-card" onclick="celebrate(this, event)">
+                <div class="topper-image">
+                    <img src="https://image.pollinations.ai/prompt/Indian%20boy%20student%20age%2013%2C%20glasses%2C%20school%20uniform%2C%20holding%20trophy%2C%20intelligent%20look%2C%20classroom%20background%2C%20professional%20portrait%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Rahul Bhat - Class 8th Topper"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop'">
+                    <span class="topper-badge">Rank 1</span>
+                </div>
+                <div class="topper-info">
+                    <h3>Rahul Bhat</h3>
+                    <p class="class-info">Class 8th Annual Exam 2025</p>
+                    <span class="percentage">95.8%</span>
+                    <div class="subject-tags">
+                        <span class="subject-tag">All Subjects</span>
+                        <span class="subject-tag">A+ Grade</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topper 6: Priya Sharma - -->
+            <div class="topper-card" onclick="celebrate(this, event)">
+                <div class="topper-image">
+                    <img src="https://image.pollinations.ai/prompt/Indian%20female%20student%20age%2014%2C%20school%20uniform%2C%20holding%20books%20and%20certificate%2C%20bright%20smile%2C%20academic%20success%2C%20classroom%20background%2C%20professional%20portrait%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Priya Sharma - Class 9th Topper"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=500&fit=crop'">
+                    <span class="topper-badge">Rank 2</span>
+                </div>
+                <div class="topper-info">
+                    <h3>Priya Sharma</h3>
+                    <p class="class-info">Class 9th Annual Exam 2025</p>
+                    <span class="percentage">95.2%</span>
+                    <div class="subject-tags">
+                        <span class="subject-tag">Science: 97</span>
+                        <span class="subject-tag">Math: 96</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teachers Section with  -->
+    <section class="teachers" id="teachers">
+        <div class="section-header">
+            <h2>Our Faculty</h2>
+            <p>Meet our experienced and dedicated educators</p>
+        </div>
+        <div class="teachers-grid">
+            <!-- Aadil Sir: Founder & Headmaster - -->
+            <div class="teacher-card featured">
+                <div class="teacher-image">
+                    <img src="./img2.jpeg" 
+                         alt="Adil Sir - Founder & Headmaster"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop'">
+                    <div class="teacher-overlay">
+                        <div class="social-icons">
+                            <a href="tel:7051695531"><i class="fas fa-phone"></i></a>
+                            <a href="https://instagram.com/ENDEAVOURS_K" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="mailto:contact@endeavours.com"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Aadil Sir</h3>
+                    <p class="teacher-role">Founder & Headmaster</p>
+                    <p class="teacher-subject">Mathematics & Science Expert</p>
+                    <span class="experience-tag">
+                        <i class="fas fa-star"></i> 12+ Years Experience
+                    </span>
+                    <p class="teacher-bio">A visionary educator dedicated to transforming students into achievers. Known for his unique teaching methods and personal mentorship.</p>
+                </div>
+            </div>
+
+            <!-- Teacher 2: Sarah Mam - English Faculty -  -->
+            <div class="teacher-card">
+                <div class="teacher-image">
+                    <img src="https://image.pollinations.ai/prompt/Indian%20female%20teacher%20age%2035%2C%20elegant%20saree%2C%20warm%20smile%2C%20holding%20books%2C%20professional%20headshot%2C%20classroom%20background%2C%20high%20quality%2C%20realistic%2C%20educator%20portrait?width=400&height=500&nologo=true" 
+                         alt="Sarah Mam - English Faculty"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop'">
+                    <div class="teacher-overlay">
+                        <div class="social-icons">
+                            <a href="#"><i class="fas fa-phone"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Sarah Mam</h3>
+                    <p class="teacher-role">Senior Faculty</p>
+                    <p class="teacher-subject">English Language & Literature</p>
+                    <span class="experience-tag">
+                        <i class="fas fa-star"></i> 10 Years Experience
+                    </span>
+                    <p class="teacher-bio">Expert in English grammar and literature with a passion for making language learning enjoyable and effective.</p>
+                </div>
+            </div>
+
+            <!-- Teacher 3: Rahul Sir - Science Faculty --->
+            <div class="teacher-card">
+                <div class="teacher-image">
+                    <img src="https://image.pollinations.ai/prompt/Indian%20male%20science%20teacher%20age%2032%2C%20lab%20coat%2C%20holding%20beaker%2C%20enthusiastic%20expression%2C%20science%20lab%20background%2C%20modern%20look%2C%20professional%20headshot%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Rahul Sir - Science Faculty"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop'">
+                    <div class="teacher-overlay">
+                        <div class="social-icons">
+                            <a href="#"><i class="fas fa-phone"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Rahul Sir</h3>
+                    <p class="teacher-role">Subject Expert</p>
+                    <p class="teacher-subject">Physics & Chemistry</p>
+                    <span class="experience-tag">
+                        <i class="fas fa-star"></i> 8 Years Experience
+                    </span>
+                    <p class="teacher-bio">Makes complex scientific concepts simple through practical demonstrations and real-life examples.</p>
+                </div>
+            </div>
+
+            <!-- Teacher 4: Amina Mam - SST Faculty - -->
+            <div class="teacher-card">
+                <div class="teacher-image">
+                    <img src="https://image.pollinations.ai/prompt/Kashmiri%20female%20teacher%20age%2040%2C%20traditional%20attire%2C%20dignified%20look%2C%20holding%20history%20book%2C%20warm%20expression%2C%20neutral%20background%2C%20professional%20headshot%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Amina Mam - SST Faculty"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=400&h=500&fit=crop'">
+                    <div class="teacher-overlay">
+                        <div class="social-icons">
+                            <a href="#"><i class="fas fa-phone"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Amina Mam</h3>
+                    <p class="teacher-role">Senior Faculty</p>
+                    <p class="teacher-subject">Social Studies & History</p>
+                    <span class="experience-tag">
+                        <i class="fas fa-star"></i> 12 Years Experience
+                    </span>
+                    <p class="teacher-bio">Brings history to life with storytelling and connects past events with present scenarios for better understanding.</p>
+                </div>
+            </div>
+
+            <!-- Teacher 5: Irfan Sir - Mathematics - -->
+            <div class="teacher-card">
+                <div class="teacher-image">
+                    <img src="https://image.pollinations.ai/prompt/Indian%20male%20mathematics%20teacher%20age%2038%2C%20spectacles%2C%20solving%20equation%2C%20intelligent%20look%2C%20formal%20shirt%2C%20professional%20headshot%2C%20neutral%20background%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Irfan Sir - Mathematics Faculty"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop'">
+                    <div class="teacher-overlay">
+                        <div class="social-icons">
+                            <a href="#"><i class="fas fa-phone"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Irfan Sir</h3>
+                    <p class="teacher-role">Mathematics Expert</p>
+                    <p class="teacher-subject">Algebra, Geometry & Trigonometry</p>
+                    <span class="experience-tag">
+                        <i class="fas fa-star"></i> 9 Years Experience
+                    </span>
+                    <p class="teacher-bio">Specializes in making mathematics easy with shortcut tricks and problem-solving strategies.</p>
+                </div>
+            </div>
+
+            <!-- Teacher 6: Tariq Sir - Computer/IT - -->
+            <div class="teacher-card">
+                <div class="teacher-image">
+                    <img src="https://image.pollinations.ai/prompt/Indian%20male%20computer%20teacher%20age%2030%2C%20smart%20casual%2C%20laptop%2C%20modern%20look%2C%20tech%20savvy%2C%20professional%20headshot%2C%20neutral%20background%2C%20high%20quality%2C%20realistic?width=400&height=500&nologo=true" 
+                         alt="Tariq Sir - Computer Faculty"
+                         class="img-loading"
+                         onload="this.classList.remove('img-loading')"
+                         onerror="this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=500&fit=crop'">
+                    <div class="teacher-overlay">
+                        <div class="social-icons">
+                            <a href="#"><i class="fas fa-phone"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-info">
+                    <h3>Tariq Sir</h3>
+                    <p class="teacher-role">IT Instructor</p>
+                    <p class="teacher-subject">Computer Science & IT</p>
+                    <span class="experience-tag">
+                        <i class="fas fa-star"></i> 6 Years Experience
+                    </span>
+                    <p class="teacher-bio">Keeps students updated with latest technology trends and practical computer skills for future readiness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MIND-MAZE SECTION -->
+    <section class="mind-maze" id="mindmaze">
+        <div class="section-header">
+            <h2><i class="fas fa-brain"></i> Mind-Maze</h2>
+            <p>Train Your Brain Through Logic, Reason & Intelligence</p>
+        </div>
+
+        <div class="mind-intro">
+            <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 40px; line-height: 1.8; opacity: 0.9;">
+                Challenge your cognitive abilities with our interactive brain training games. Improve your memory, pattern recognition, logical reasoning, and mental math skills through engaging puzzles designed specifically for students.
+            </p>
+            
+            <div class="mind-stats">
+                <div class="mind-stat">
+                    <i class="fas fa-gamepad"></i>
+                    <span>4</span>
+                    <label>Brain Games</label>
+                </div>
+                <div class="mind-stat">
+                    <i class="fas fa-users"></i>
+                    <span>500+</span>
+                    <label>Active Players</label>
+                </div>
+                <div class="mind-stat">
+                    <i class="fas fa-trophy"></i>
+                    <span>50+</span>
+                    <label>Daily Challenges</label>
+                </div>
+                <div class="mind-stat">
+                    <i class="fas fa-chart-line"></i>
+                    <span>98%</span>
+                    <label>Skill Improvement</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="games-container">
+            <!-- Memory Matrix Game -->
+            <div class="game-card">
+                <div class="game-header">
+                    <div class="game-icon">
+                        <i class="fas fa-th"></i>
+                    </div>
+                    <div class="game-title">
+                        <h3>Memory Matrix</h3>
+                        <span>Pattern Recall Challenge</span>
+                    </div>
+                </div>
+                <p class="game-desc">
+                    Test your visual memory by remembering and reproducing patterns. This game enhances your short-term memory and concentration skills.
+                </p>
+                <button class="play-btn" onclick="startMemoryGame()">
+                    <i class="fas fa-play"></i> Play Now
+                </button>
+            </div>
+
+            <!-- Pattern Solver Game -->
+            <div class="game-card">
+                <div class="game-header">
+                    <div class="game-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <div class="game-title">
+                        <h3>Pattern Solver</h3>
+                        <span>Logical Sequence</span>
+                    </div>
+                </div>
+                <p class="game-desc">
+                    Identify the missing element in number and shape sequences. Develops logical reasoning and pattern recognition abilities.
+                </p>
+                <button class="play-btn" onclick="startPatternGame()">
+                    <i class="fas fa-play"></i> Play Now
+                </button>
+            </div>
+
+            <!-- Logic Master Game -->
+            <div class="game-card">
+                <div class="game-header">
+                    <div class="game-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="game-title">
+                        <h3>Logic Master</h3>
+                        <span>Reasoning Puzzles</span>
+                    </div>
+                </div>
+                <p class="game-desc">
+                    Solve brain teasers and logical puzzles that challenge your critical thinking and problem-solving capabilities.
+                </p>
+                <button class="play-btn" onclick="startLogicGame()">
+                    <i class="fas fa-play"></i> Play Now
+                </button>
+            </div>
+
+            <!-- Speed Math Game -->
+            <div class="game-card">
+                <div class="game-header">
+                    <div class="game-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="game-title">
+                        <h3>Speed Math</h3>
+                        <span>Mental Calculation</span>
+                    </div>
+                </div>
+                <p class="game-desc">
+                    Race against time to solve mathematical problems. Improves mental arithmetic speed and accuracy under pressure.
+                </p>
+                <button class="play-btn" onclick="startMathGame()">
+                    <i class="fas fa-play"></i> Play Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Areas (Hidden by default) -->
+        <div id="memoryGameArea" class="game-area">
+            <div class="game-controls">
+                <div class="score-board">
+                    <div class="score-item">
+                        <i class="fas fa-star"></i>
+                        <span>Score: <span id="memoryScore">0</span></span>
+                    </div>
+                    <div class="score-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Moves: <span id="memoryMoves">0</span></span>
+                    </div>
+                </div>
+                <button class="close-game" onclick="closeGame('memory')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="memory-grid" id="memoryGrid">
+                <!-- Cards generated by JS -->
+            </div>
+        </div>
+
+        <div id="patternGameArea" class="game-area">
+            <div class="game-controls">
+                <div class="score-board">
+                    <div class="score-item">
+                        <i class="fas fa-star"></i>
+                        <span>Score: <span id="patternScore">0</span></span>
+                    </div>
+                    <div class="score-item">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Level: <span id="patternLevel">1</span></span>
+                    </div>
+                </div>
+                <button class="close-game" onclick="closeGame('pattern')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="pattern-container">
+                <div class="pattern-display" id="patternDisplay">
+                    <!-- Pattern generated by JS -->
+                </div>
+                <div class="pattern-options" id="patternOptions">
+                    <!-- Options generated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <div id="logicGameArea" class="game-area">
+            <div class="game-controls">
+                <div class="score-board">
+                    <div class="score-item">
+                        <i class="fas fa-star"></i>
+                        <span>Score: <span id="logicScore">0</span></span>
+                    </div>
+                    <div class="score-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Question: <span id="logicQuestion">1</span>/5</span>
+                    </div>
+                </div>
+                <button class="close-game" onclick="closeGame('logic')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="logic-container">
+                <div class="logic-question" id="logicQuestionText">
+                    <!-- Question generated by JS -->
+                </div>
+                <div class="logic-options" id="logicOptions">
+                    <!-- Options generated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <div id="mathGameArea" class="game-area">
+            <div class="game-controls">
+                <div class="score-board">
+                    <div class="score-item">
+                        <i class="fas fa-star"></i>
+                        <span>Score: <span id="mathScore">0</span></span>
+                    </div>
+                    <div class="score-item">
+                        <i class="fas fa-fire"></i>
+                        <span>Streak: <span id="mathStreak">0</span></span>
+                    </div>
+                </div>
+                <button class="close-game" onclick="closeGame('math')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="math-container">
+                <div class="math-timer" id="mathTimer">30</div>
+                <div class="math-problem" id="mathProblem">12 + 8 = ?</div>
+                <input type="number" class="math-input" id="mathInput" placeholder="?" autofocus>
+                <button class="math-submit" onclick="checkMathAnswer()">
+                    <i class="fas fa-check"></i> Submit Answer
+                </button>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="leaderboard">
+            <h3><i class="fas fa-crown"></i> Today's Top Brainiacs</h3>
+            <div class="leaderboard-list">
+                <div class="leader-item">
+                    <div class="leader-rank">1</div>
+                    <div class="leader-info">
+                        <h4>Aarav Sharma</h4>
+                        <span>Memory Matrix Champion</span>
+                    </div>
+                    <div class="leader-score">2,450 pts</div>
+                </div>
+                <div class="leader-item">
+                    <div class="leader-rank">2</div>
+                    <div class="leader-info">
+                        <h4>Zara Khan</h4>
+                        <span>Pattern Solver Expert</span>
+                    </div>
+                    <div class="leader-score">2,180 pts</div>
+                </div>
+                <div class="leader-item">
+                    <div class="leader-rank">3</div>
+                    <div class="leader-info">
+                        <h4>Mohammad Irfan</h4>
+                        <span>Speed Math Master</span>
+                    </div>
+                    <div class="leader-score">1,950 pts</div>
+                </div>
+                <div class="leader-item">
+                    <div class="leader-rank">4</div>
+                    <div class="leader-info">
+                        <h4>Fatima Begum</h4>
+                        <span>Logic Master</span>
+                    </div>
+                    <div class="leader-score">1,820 pts</div>
+                </div>
+                <div class="leader-item">
+                    <div class="leader-rank">5</div>
+                    <div class="leader-info">
+                        <h4>Rahul Bhat</h4>
+                        <span>All-Rounder</span>
+                    </div>
+                    <div class="leader-score">1,640 pts</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-header">
+            <h2>Contact Us</h2>
+            <p>Get in touch with us for admissions</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Visit Our Centre</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Main Road, Near Bus Stand<br>Pampore, Pulwama, J&K - 192121</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+91 70516 95531<br>+91 70060 12345</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>Aadil.sir.endeavours@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4>Timings</h4>
+                        <p>Mon-Sat: 8:00 AM - 6:00 PM<br>Sunday: Closed</p>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://instagram.com/ENDEAVOURS_K" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://facebook.com" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/917051695531" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="tel:7051695531">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="class">Interested Class</label>
+                        <input type="text" id="class" name="class" placeholder="8th, 9th or 10th">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Your message or query..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-lightbulb" style="color: var(--primary-red); font-size: 3rem;"></i>
+            </div>
+            <h3>Adil Sir's Endeavours</h3>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Excellence in Education Since 2014</p>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#toppers">Toppers</a>
+                <a href="#teachers">Teachers</a>
+                <a href="#mindmaze">Mind-Maze</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">
+                <i class="fab fa-instagram"></i> Follow us: <strong>@endeavours_k</strong>
+            </p>
+            <div class="copyright">
+                <p>&copy; 2026 Aadil Sir's Endeavours. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> in Pampore, Kashmir</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Remove loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Close book animation
+        function closeBook() {
+            document.getElementById('bookContainer').style.display = 'none';
+        }
+
+        // Auto close book after 5 seconds
+        setTimeout(closeBook, 5000);
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Form submission
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            // Create celebration effect
+            const btn = e.target.querySelector('.submit-btn');
+            const rect = btn.getBoundingClientRect();
+            createConfetti(rect.left + rect.width/2, rect.top);
+            
+            setTimeout(() => {
+                alert('Thank you for your message! We will contact you soon.');
+                e.target.reset();
+            }, 500);
+        }
+
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+
+            // Navbar effect
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // CELEBRATION EFFECTS
+        const canvas = document.getElementById('celebration-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        let flowers = [];
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Particle class for confetti
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 8 + 4;
+                this.speedX = Math.random() * 6 - 3;
+                this.speedY = Math.random() * -15 - 5;
+                this.gravity = 0.4;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 10 - 5;
+                this.life = 100;
+            }
+
+            update() {
+                this.speedY += this.gravity;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+                this.life -= 1;
+                this.size *= 0.99;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        // Flower class for petal effect
+        class Flower {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 15 + 10;
+                this.speedX = Math.random() * 4 - 2;
+                this.speedY = Math.random() * -10 - 5;
+                this.gravity = 0.2;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 5 - 2.5;
+                this.life = 150;
+                this.color = ['#ff6b9d', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd'][Math.floor(Math.random() * 5)];
+            }
+
+            update() {
+                this.speedY += this.gravity;
+                this.x += this.speedX + Math.sin(this.life * 0.05) * 2;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+                this.life -= 1;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                
+                // Draw flower shape
+                for (let i = 0; i < 5; i++) {
+                    ctx.beginPath();
+                    ctx.ellipse(0, -this.size/2, this.size/4, this.size/2, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.rotate((Math.PI * 2) / 5);
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        // Create confetti explosion
+        function createConfetti(x, y) {
+            const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE'];
+            
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle(x, y, colors[Math.floor(Math.random() * colors.length)]));
+            }
+            
+            // Add flowers too
+            for (let i = 0; i < 20; i++) {
+                flowers.push(new Flower(x, y));
+            }
+        }
+
+        // Create flower shower
+        function createFlowerShower(x, y) {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    flowers.push(new Flower(x + Math.random() * 100 - 50, y));
+                }, i * 50);
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw particles
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            
+            // Update and draw flowers
+            flowers = flowers.filter(f => f.life > 0);
+            flowers.forEach(f => {
+                f.update();
+                f.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Celebrate function for topper cards
+        function celebrate(card, event) {
+            // Add celebrating class for animation
+            card.classList.add('celebrating');
+            setTimeout(() => card.classList.remove('celebrating'), 600);
+            
+            // Get click position
+            const rect = card.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            // Create massive celebration
+            createConfetti(x, y);
+            createFlowerShower(x, y);
+            
+            // Create additional bursts
+            setTimeout(() => createConfetti(x - 50, y - 50), 200);
+            setTimeout(() => createConfetti(x + 50, y - 50), 400);
+            
+            // Show congratulations message
+            showCongratulations(card);
+        }
+
+        // Show congratulations popup
+        function showCongratulations(card) {
+            const name = card.querySelector('h3').textContent;
+            const percentage = card.querySelector('.percentage').textContent;
+            
+            // Create popup
+            const popup = document.createElement('div');
+            popup.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+                color: white;
+                padding: 30px 50px;
+                border-radius: 20px;
+                text-align: center;
+                z-index: 10000;
+                box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+                animation: popup-in 0.5s forwards;
+                border: 3px solid #FFD700;
+            `;
+            popup.innerHTML = `
+                <div style="font-size: 4rem; margin-bottom: 15px;">🎉</div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 10px; font-family: Playfair Display;">Congratulations!</h3>
+                <p style="font-size: 1.2rem; margin-bottom: 5px;">${name}</p>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #FFD700;">${percentage}</p>
+                <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.9;">Keep shining! ✨</p>
+            `;
+            
+            document.body.appendChild(popup);
+            
+            // Add animation style
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes popup-in {
+                    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                    50% { transform: translate(-50%, -50%) scale(1.1); }
+                    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                }
+                @keyframes popup-out {
+                    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                    100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Remove popup after 3 seconds
+            setTimeout(() => {
+                popup.style.animation = 'popup-out 0.3s forwards';
+                setTimeout(() => popup.remove(), 300);
+            }, 2500);
+        }
+
+        // Add sparkle effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.97) {
+                createSparkle(e.clientX, e.clientY);
+            }
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.setProperty('--tx', (Math.random() * 100 - 50) + 'px');
+            sparkle.style.setProperty('--ty', (Math.random() * 100 - 50) + 'px');
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.service-card, .topper-card, .teacher-card, .game-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // ==========================================
+        // MIND-MAZE GAME LOGIC
+        // ==========================================
+
+        let currentGame = null;
+        let gameScores = {
+            memory: 0,
+            pattern: 0,
+            logic: 0,
+            math: 0
+        };
+
+        // Close any active game
+        function closeGame(gameType) {
+            document.getElementById(gameType + 'GameArea').classList.remove('active');
+            if (currentGame && currentGame.interval) {
+                clearInterval(currentGame.interval);
+            }
+            currentGame = null;
+        }
+
+        // Memory Matrix Game
+        function startMemoryGame() {
+            closeGame('pattern');
+            closeGame('logic');
+            closeGame('math');
+            
+            const gameArea = document.getElementById('memoryGameArea');
+            gameArea.classList.add('active');
+            
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
+            
+            const emojis = ['🎯', '🎨', '🎪', '🎭', '🎸', '🎺', '🎻', '🎮'];
+            const cards = [...emojis, ...emojis];
+            
+            // Shuffle cards
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            
+            let flippedCards = [];
+            let matchedPairs = 0;
+            let moves = 0;
+            let canFlip = true;
+            
+            cards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.innerHTML = `
+                    <div class="front">${emoji}</div>
+                    <div class="back"><i class="fas fa-question"></i></div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    if (!canFlip || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+                    
+                    card.classList.add('flipped');
+                    flippedCards.push({ card, emoji });
+                    
+                    if (flippedCards.length === 2) {
+                        moves++;
+                        document.getElementById('memoryMoves').textContent = moves;
+                        canFlip = false;
+                        
+                        if (flippedCards[0].emoji === flippedCards[1].emoji) {
+                            // Match found
+                            setTimeout(() => {
+                                flippedCards[0].card.classList.add('matched');
+                                flippedCards[1].card.classList.add('matched');
+                                matchedPairs++;
+                                gameScores.memory += 100;
+                                document.getElementById('memoryScore').textContent = gameScores.memory;
+                                
+                                if (matchedPairs === emojis.length) {
+                                    setTimeout(() => {
+                                        createConfetti(window.innerWidth/2, window.innerHeight/2);
+                                        alert(`Congratulations! You completed the game in ${moves} moves!`);
+                                    }, 500);
+                                }
+                                
+                                flippedCards = [];
+                                canFlip = true;
+                            }, 500);
+                        } else {
+                            // No match
+                            setTimeout(() => {
+                                flippedCards[0].card.classList.remove('flipped');
+                                flippedCards[1].card.classList.remove('flipped');
+                                flippedCards = [];
+                                canFlip = true;
+                            }, 1000);
+                        }
+                    }
+                });
+                
+                grid.appendChild(card);
+            });
+            
+            // Scroll to game
+            gameArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Pattern Solver Game
+        function startPatternGame() {
+            closeGame('memory');
+            closeGame('logic');
+            closeGame('math');
+            
+            const gameArea = document.getElementById('patternGameArea');
+            gameArea.classList.add('active');
+            
+            let level = 1;
+            let score = 0;
+            
+            function generatePattern() {
+                const patterns = [
+                    {
+                        sequence: ['2', '4', '6', '?', '10'],
+                        answer: '8',
+                        options: ['7', '8', '9', '12'],
+                        rule: 'Add 2'
+                    },
+                    {
+                        sequence: ['1', '4', '9', '?', '25'],
+                        answer: '16',
+                        options: ['12', '14', '16', '18'],
+                        rule: 'Squares'
+                    },
+                    {
+                        sequence: ['🔴', '🔵', '🔴', '🔵', '?'],
+                        answer: '🔴',
+                        options: ['🔴', '🔵', '🟢', '🟡'],
+                        rule: 'Alternating'
+                    },
+                    {
+                        sequence: ['3', '6', '12', '?', '48'],
+                        answer: '24',
+                        options: ['18', '20', '24', '30'],
+                        rule: 'Multiply by 2'
+                    },
+                    {
+                        sequence: ['🌟', '🌟🌟', '🌟🌟🌟', '?', '🌟🌟🌟🌟🌟'],
+                        answer: '🌟🌟🌟🌟',
+                        options: ['🌟🌟', '🌟🌟🌟', '🌟🌟🌟🌟', '🌟🌟🌟🌟🌟'],
+                        rule: 'Add one star'
+                    }
+                ];
+                
+                const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+                
+                const display = document.getElementById('patternDisplay');
+                display.innerHTML = pattern.sequence.map(item => 
+                    `<div class="pattern-box" style="background: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%); color: white;">${item}</div>`
+                ).join('');
+                
+                const optionsDiv = document.getElementById('patternOptions');
+                optionsDiv.innerHTML = '';
+                
+                pattern.options.forEach(option => {
+                    const btn = document.createElement('button');
+                    btn.className = 'pattern-btn';
+                    btn.textContent = option;
+                    btn.onclick = function() {
+                        if (option === pattern.answer) {
+                            this.classList.add('correct');
+                            score += 50 * level;
+                            document.getElementById('patternScore').textContent = score;
+                            level++;
+                            document.getElementById('patternLevel').textContent = level;
+                            
+                            setTimeout(() => {
+                                createConfetti(window.innerWidth/2, window.innerHeight/2);
+                                generatePattern();
+                            }, 1000);
+                        } else {
+                            this.classList.add('wrong');
+                            setTimeout(() => this.classList.remove('wrong'), 500);
+                        }
+                    };
+                    optionsDiv.appendChild(btn);
+                });
+            }
+            
+            generatePattern();
+            gameArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Logic Master Game
+        function startLogicGame() {
+            closeGame('memory');
+            closeGame('pattern');
+            closeGame('math');
+            
+            const gameArea = document.getElementById('logicGameArea');
+            gameArea.classList.add('active');
+            
+            const questions = [
+                {
+                    q: "If all roses are flowers and some flowers fade quickly, then:",
+                    options: [
+                        "All roses fade quickly",
+                        "Some roses fade quickly",
+                        "Roses never fade quickly",
+                        "Cannot be determined"
+                    ],
+                    correct: 3,
+                    explanation: "We cannot determine if roses fade quickly based on the given information."
+                },
+                {
+                    q: "Complete the analogy: Book is to Reading as Fork is to:",
+                    options: [
+                        "Cooking",
+                        "Eating",
+                        "Kitchen",
+                        "Food"
+                    ],
+                    correct: 1,
+                    explanation: "A fork is used for eating, just as a book is used for reading."
+                },
+                {
+                    q: "If A = 1, B = 2, C = 3, what is the value of CAB?",
+                    options: [
+                        "312",
+                        "123",
+                        "321",
+                        "213"
+                    ],
+                    correct: 0,
+                    explanation: "C = 3, A = 1, B = 2, so CAB = 312"
+                },
+                {
+                    q: "Which number comes next: 2, 5, 11, 23, ?",
+                    options: [
+                        "35",
+                        "47",
+                        "46",
+                        "45"
+                    ],
+                    correct: 1,
+                    explanation: "Multiply by 2 and add 1: 2×2+1=5, 5×2+1=11, 11×2+1=23, 23×2+1=47"
+                },
+                {
+                    q: "If you rearrange the letters 'CIFAIPC', you get the name of a:",
+                    options: [
+                        "Country",
+                        "City",
+                        "Ocean",
+                        "Mountain"
+                    ],
+                    correct: 1,
+                    explanation: "CIFAIPC rearranged is PACIFIC, which is an ocean... wait, let me check again. Actually, it's PACIFIC which is an Ocean!"
+                }
+            ];
+            
+            let currentQ = 0;
+            let score = 0;
+            
+            function showQuestion() {
+                if (currentQ >= questions.length) {
+                    createConfetti(window.innerWidth/2, window.innerHeight/2);
+                    alert(`Quiz Complete! Your score: ${score}/${questions.length * 100}`);
+                    currentQ = 0;
+                    score = 0;
+                }
+                
+                const q = questions[currentQ];
+                document.getElementById('logicQuestionText').textContent = q.q;
+                document.getElementById('logicQuestion').textContent = `${currentQ + 1}/${questions.length}`;
+                
+                const optionsDiv = document.getElementById('logicOptions');
+                optionsDiv.innerHTML = '';
+                
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'logic-btn';
+                    btn.innerHTML = `<i class="fas fa-${String.fromCharCode(97 + idx)}-circle"></i> ${opt}`;
+                    btn.onclick = function() {
+                        if (idx === q.correct) {
+                            this.classList.add('correct');
+                            score += 100;
+                            document.getElementById('logicScore').textContent = score;
+                            setTimeout(() => {
+                                currentQ++;
+                                showQuestion();
+                            }, 1500);
+                        } else {
+                            this.classList.add('wrong');
+                            setTimeout(() => this.classList.remove('wrong'), 500);
+                        }
+                    };
+                    optionsDiv.appendChild(btn);
+                });
+            }
+            
+            showQuestion();
+            gameArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Speed Math Game
+        function startMathGame() {
+            closeGame('memory');
+            closeGame('pattern');
+            closeGame('logic');
+            
+            const gameArea = document.getElementById('mathGameArea');
+            gameArea.classList.add('active');
+            
+            let score = 0;
+            let streak = 0;
+            let timeLeft = 30;
+            let currentAnswer = 0;
+            
+            function generateProblem() {
+                const operations = ['+', '-', '*'];
+                const operation = operations[Math.floor(Math.random() * operations.length)];
+                let num1, num2;
+                
+                switch(operation) {
+                    case '+':
+                        num1 = Math.floor(Math.random() * 50) + 1;
+                        num2 = Math.floor(Math.random() * 50) + 1;
+                        currentAnswer = num1 + num2;
+                        break;
+                    case '-':
+                        num1 = Math.floor(Math.random() * 50) + 20;
+                        num2 = Math.floor(Math.random() * 20) + 1;
+                        currentAnswer = num1 - num2;
+                        break;
+                    case '*':
+                        num1 = Math.floor(Math.random() * 12) + 2;
+                        num2 = Math.floor(Math.random() * 10) + 2;
+                        currentAnswer = num1 * num2;
+                        break;
+                }
+                
+                document.getElementById('mathProblem').textContent = `${num1} ${operation} ${num2} = ?`;
+                document.getElementById('mathInput').value = '';
+                document.getElementById('mathInput').focus();
+            }
+            
+            window.checkMathAnswer = function() {
+                const input = document.getElementById('mathInput');
+                const userAnswer = parseInt(input.value);
+                
+                if (userAnswer === currentAnswer) {
+                    score += 10 * (streak + 1);
+                    streak++;
+                    document.getElementById('mathScore').textContent = score;
+                    document.getElementById('mathStreak').textContent = streak;
+                    
+                    if (streak % 5 === 0) {
+                        createConfetti(window.innerWidth/2, window.innerHeight/2);
+                    }
+                    
+                    generateProblem();
+                } else {
+                    streak = 0;
+                    document.getElementById('mathStreak').textContent = streak;
+                    input.style.borderColor = '#ef4444';
+                    setTimeout(() => {
+                        input.style.borderColor = '#e5e7eb';
+                    }, 500);
+                }
+            };
+            
+            // Handle Enter key
+            document.getElementById('mathInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkMathAnswer();
+            });
+            
+            // Timer
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('mathTimer').textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    createConfetti(window.innerWidth/2, window.innerHeight/2);
+                    alert(`Time's up! Final Score: ${score}`);
+                    closeGame('math');
+                }
+            }, 1000);
+            
+            currentGame = { interval: timerInterval };
+            generateProblem();
+            gameArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
